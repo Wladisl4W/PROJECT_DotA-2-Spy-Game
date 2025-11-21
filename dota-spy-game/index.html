@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DotA 2: Игра в шпиона</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DotA 2: Игра в шпиона</h1>
+        </header>
+        
+        <main id="main-content">
+            <!-- Screen 1: Player Count Selection -->
+            <section id="player-count-screen" class="screen active">
+                <div class="player-count-selection">
+                    <h2>Выберите количество игроков</h2>
+                    <div class="player-range">
+                        <input type="range" id="playerCountSlider" min="3" max="12" value="6">
+                        <span id="playerCountDisplay">6</span>
+                    </div>
+                    <button id="startGameBtn" class="btn">Начать игру</button>
+                </div>
+            </section>
+            
+            <!-- Screen 2: Card for Player -->
+            <section id="card-screen" class="screen hidden">
+                <div class="card-container">
+                    <div class="spy-card">
+                        <div class="card-inner" id="cardInner">
+                            <div class="card-front" id="cardFront">
+                                <div class="card-content">
+                                    <p>Нажми меня</p>
+                                </div>
+                            </div>
+                            <div class="card-back" id="cardBack">
+                                <div class="character-info">
+                                    <div class="character-image-container">
+                                        <img id="characterImage" src="" alt="Персонаж DotA 2">
+                                    </div>
+                                    <h3 id="characterName"></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-controls">
+                        <button id="nextPlayerBtn" class="btn disabled">Следующий</button>
+                        <button id="startGameFinalBtn" class="btn hidden">Начать игру</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Screen 3: Game Started -->
+            <section id="game-started-screen" class="screen hidden">
+                <div class="game-started">
+                    <h2>Игра началась!</h2>
+                    <p>Теперь вы знаете свой персонаж. Найдите шпиона!</p>
+                    <button id="resetGameBtn" class="btn">Новая игра</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
