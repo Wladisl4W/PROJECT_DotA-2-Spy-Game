@@ -85,8 +85,24 @@
             let cdnHeroName = heroName;
             const nameVariations = {
                 'shadow-fiend': 'nevermore',
-                'wraith-king': 'skeleton-king',
-                "nature's-prophet": 'furion'
+                'wraith-king': 'wraith_king',
+                "nature's-prophet": 'furion',
+                'windranger': 'windrunner',
+                'underlord': 'abyssal_underlord',
+                'zeus': 'zuus',
+                'vengeful-spirit': 'vengefulspirit',
+                'centaur-warrunner': 'centaur',
+                'treant-protector': 'treant',
+                'timbersaw': 'shredder',
+                'anti-mage': 'antimage',
+                'clockwerk': 'rattletrap',
+                'doom': 'doom_bringer',
+                'io': 'wisp',
+                'lifestealer': 'life_stealer',
+                'magnus': 'magnataur',
+                'necrophos': 'necrolyte',
+                'outworld-destroyer': 'obsidian_destroyer',
+                'queen-of-pain': 'queenofpain'
             };
 
             if (nameVariations[heroName]) {
@@ -155,8 +171,25 @@
                     `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName.replace(/-/g, '_')}_full.png`,
                     // Try special name variations on old CDN
                     originalName === 'shadow-fiend' ? `http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_full.png` :
-                    originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton-king_full.png` :
+                    originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton_king_full.png` :
                     originalName === "nature's-prophet" ? `http://cdn.dota2.com/apps/dota2/images/heroes/furion_full.png` : null,
+                    // Additional special cases that need specific handling
+                    originalName === 'windranger' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png` :
+                    originalName === 'brewmaster' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster_storm.png` :
+                    originalName === 'wraith-king' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png` :
+                    originalName === 'vengeful-spirit' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png` :
+                    originalName === 'centaur-warrunner' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png` :
+                    originalName === 'treant-protector' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png` :
+                    originalName === 'timbersaw' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png` :
+                    originalName === 'anti-mage' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png` :
+                    originalName === 'clockwerk' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png` :
+                    originalName === 'doom' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png` :
+                    originalName === 'io' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png` :
+                    originalName === 'lifestealer' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png` :
+                    originalName === 'magnus' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png` :
+                    originalName === 'necrophos' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png` :
+                    originalName === 'outworld-destroyer' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png` :
+                    originalName === 'queen-of-pain' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png` : null,
                     // Liquipedia fallback - these are reliable community-maintained images
                     `https://liquipedia.net/dota2/images/${originalName.replace(/^./, originalName[0].toUpperCase())}.png`, // Capitalize first letter
                     // Alternative Liquipedia pattern
@@ -165,6 +198,8 @@
                     `https://dota2.gamepedia.com/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
                     // Another Fandom/Wiki pattern
                     `https://dota2.fandom.com/wiki/File:${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                    // Additional wiki pattern
+                    `https://static.wikia.nocookie.net/dota2_gamepedia/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
                 ].filter(Boolean);
 
                 let fallbackIndex = 0;

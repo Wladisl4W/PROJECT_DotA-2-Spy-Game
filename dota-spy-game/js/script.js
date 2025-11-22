@@ -147,8 +147,24 @@ document.addEventListener('DOMContentLoaded', function() {
             let cdnCharacterName = gameState.selectedCharacter;
             const nameVariations = {
                 'shadow-fiend': 'nevermore',  // Shadow Fiend's internal name is nevermore
-                'wraith-king': 'skeleton-king', // Wraith King was renamed from Skeleton King
-                "nature's-prophet": 'furion'  // Nature's Prophet's internal name is furion
+                'wraith-king': 'wraith_king', // Wraith King's underscore format for CDN
+                "nature's-prophet": 'furion',  // Nature's Prophet's internal name is furion
+                'windranger': 'windrunner',  // Windranger is internally called windrunner
+                'underlord': 'abyssal_underlord',  // Underlord's full name is abyssal_underlord
+                'zeus': 'zuus',  // Zeus is internally called zuus in some Valve systems
+                'vengeful-spirit': 'vengefulspirit',  // Vengeful Spirit might be stored without underscore
+                'centaur-warrunner': 'centaur',  // Centaur Warrunner might be stored as just centaur
+                'treant-protector': 'treant',  // Treant Protector might be stored as treant
+                'timbersaw': 'shredder',  // Timbersaw's original name was Shredder
+                'anti-mage': 'antimage',  // Anti-Mage is internally called antimage (no hyphen)
+                'clockwerk': 'rattletrap',  // Clockwerk's internal/old name is rattletrap
+                'doom': 'doom_bringer',  // Doom's full internal name might be doom_bringer
+                'io': 'wisp',  // Io was previously called Wisp
+                'lifestealer': 'life_stealer',  // Lifestealer might be stored with underscore
+                'magnus': 'magnataur',  // Magnus is internally called magnataur
+                'necrophos': 'necrolyte',  // Necrophos might be stored as necrolyte (old name)
+                'outworld-destroyer': 'obsidian_destroyer',  // Outworld Destroyer's internal name is obsidian_destroyer
+                'queen-of-pain': 'queenofpain'  // Queen of Pain might be stored without hyphens
             };
 
             if (nameVariations[gameState.selectedCharacter]) {
@@ -194,8 +210,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName.replace(/-/g, '_')}_full.png`,
                 // Try special name variations on old CDN
                 originalName === 'shadow-fiend' ? `http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_full.png` :
-                originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton-king_full.png` :
+                originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton_king_full.png` :
                 originalName === "nature's-prophet" ? `http://cdn.dota2.com/apps/dota2/images/heroes/furion_full.png` : null,
+                // Additional special cases that need specific handling
+                originalName === 'windranger' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png` :
+                originalName === 'brewmaster' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster_storm.png` :
+                originalName === 'wraith-king' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png` :
+                originalName === 'vengeful-spirit' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png` :
+                originalName === 'centaur-warrunner' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png` :
+                originalName === 'treant-protector' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png` :
+                originalName === 'timbersaw' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png` :
+                originalName === 'anti-mage' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png` :
+                originalName === 'clockwerk' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png` :
+                originalName === 'doom' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png` :
+                originalName === 'io' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png` :
+                originalName === 'lifestealer' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png` :
+                originalName === 'magnus' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png` :
+                originalName === 'necrophos' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png` :
+                originalName === 'outworld-destroyer' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png` :
+                originalName === 'queen-of-pain' ? `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png` : null,
                 // Liquipedia fallback - these are reliable community-maintained images
                 `https://liquipedia.net/dota2/images/${originalName.replace(/^./, originalName[0].toUpperCase())}.png`, // Capitalize first letter
                 // Alternative Liquipedia pattern
@@ -204,6 +237,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 `https://dota2.gamepedia.com/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
                 // Another Fandom/Wiki pattern
                 `https://dota2.fandom.com/wiki/File:${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                // Additional wiki pattern
+                `https://static.wikia.nocookie.net/dota2_gamepedia/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
             ].filter(Boolean); // Remove null values
 
             // Try the next fallback if available
