@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextPlayerBtn = document.getElementById('nextPlayerBtn');
     const startGameFinalBtn = document.getElementById('startGameFinalBtn');
     const resetGameBtn = document.getElementById('resetGameBtn');
+    const playerNumber = document.getElementById('playerNumber');
+    const totalPlayers = document.getElementById('totalPlayers');
 
     // Load saved player count from localStorage if it exists
     const savedPlayerCount = localStorage.getItem('playerCount');
@@ -168,6 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
             characterName.textContent = gameState.selectedCharacter.replace(/-/g, ' ').toUpperCase();
         }
 
+        // Update player indicator
+        playerNumber.textContent = gameState.currentPlayer + 1;
+        totalPlayers.textContent = gameState.players.length;
+
         // Clear any existing timers to prevent conflicts
         if (flipTimer) clearTimeout(flipTimer);
         if (showNextButtonTimer) clearTimeout(showNextButtonTimer);
@@ -197,6 +203,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Flip card back to front
         cardInner.classList.remove('flipped');
+
+        // Update player indicator
+        playerNumber.textContent = gameState.currentPlayer + 1;
+        totalPlayers.textContent = gameState.players.length;
 
         // Determine which button to show based on player position
         if (gameState.currentPlayer === gameState.players.length - 1) {
@@ -231,6 +241,10 @@ document.addEventListener('DOMContentLoaded', function() {
         cardScreen.classList.remove('hidden');
         gameStartedScreen.classList.add('hidden');
 
+        // Update player indicator
+        playerNumber.textContent = gameState.currentPlayer + 1;
+        totalPlayers.textContent = gameState.players.length;
+
         // For the first player, show "Next Player" button (disabled initially)
         // since gameState.currentPlayer starts at 0
         nextPlayerBtn.classList.remove('hidden');
@@ -243,6 +257,10 @@ document.addEventListener('DOMContentLoaded', function() {
         playerCountScreen.classList.add('hidden');
         cardScreen.classList.add('hidden');
         gameStartedScreen.classList.remove('hidden');
+
+        // Update player indicator to show the final player
+        playerNumber.textContent = gameState.players.length;
+        totalPlayers.textContent = gameState.players.length;
 
         // Explicitly hide buttons to ensure clean state
         nextPlayerBtn.classList.add('hidden');
@@ -272,6 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update the display to match the slider value
         playerCountDisplay.textContent = playerCountSlider.value;
+        // Update player indicator to default values
+        playerNumber.textContent = '1';
+        totalPlayers.textContent = playerCountSlider.value;
         resetCard();
         // Buttons will be set correctly in resetCard() based on currentPlayer
     }

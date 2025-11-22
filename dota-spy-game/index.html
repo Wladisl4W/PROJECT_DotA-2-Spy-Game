@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>DotA 2: Игра в шпиона</h1>
+            <h1>DotA 2<span>Игра в шпиона</span></h1>
         </header>
         
         <main id="main-content">
@@ -28,6 +28,9 @@
             <!-- Screen 2: Card for Player -->
             <section id="card-screen" class="screen hidden">
                 <div class="card-container">
+                    <div class="player-indicator">
+                        <span id="currentPlayer">Игрок <span id="playerNumber">1</span> из <span id="totalPlayers">6</span></span>
+                    </div>
                     <div class="spy-card">
                         <div class="card-inner" id="cardInner">
                             <div class="card-front" id="cardFront">
