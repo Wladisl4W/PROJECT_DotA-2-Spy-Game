@@ -14,21 +14,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // DotA 2 characters list
     const dotaCharacters = [
-        'abaddon', 'alchemist', 'ancient-apparition', 'anti-mage', 'arc-warden', 'axe', 'bane', 'batrider', 
-        'beastmaster', 'bloodseeker', 'bounty-hunter', 'brewmaster', 'bristleback', 'broodmother', 'centaur', 
-        'chaos-knight', 'chen', 'clinkz', 'clockwerk', 'crystal-maiden', 'dark-seer', 'dark-willow', 'dawnbreaker', 
-        'dazzle', 'death-prophet', 'disruptor', 'doom', 'dragon-knight', 'drow-ranger', 'earth-shaker', 'earth-spirit', 
-        'elder-titan', 'ember-spirit', 'enchantress', 'enigma', 'faceless-void', 'grimstroke', 'gyrocopter', 'hoodwink', 
-        'huskar', 'invoker', 'io', 'jakiro', 'juggernaut', 'keeper-of-the-light', 'kunkka', 'legion-commander', 
-        'leshrac', 'lich', 'lifestealer', 'lina', 'lion', 'lone-druid', 'luna', 'lycan', 'magnus', 'marci', 'mars', 
-        'medusa', 'meepo', 'mirana', 'monkey-king', 'morphling', 'muerta', 'naga-siren', 'natures-prophet', 'necrophos', 
-        'night-stalker', 'nyx-assassin', 'ogre-magi', 'omniknight', 'oracle', 'pangolier', 'phantom-assassin', 
-        'phantom-lancer', 'phoenix', 'primal-beast', 'puck', 'pudge', 'pugna', 'queen-of-pain', 'razor', 'riki', 
-        'rubick', 'sand-king', 'shadow-demon', 'shadow-fiend', 'shadow-shaman', 'silencer', 'skeleton-king', 'skywrath-mage', 
-        'slardar', 'slark', 'snapfire', 'sniper', 'spectre', 'spirit-breaker', 'storm-spirit', 'sven', 'techies', 
-        'templar-assassin', 'terrorblade', 'tidehunter', 'timbersaw', 'tinker', 'tiny', 'treant-protector', 'troll-warlord', 
-        'tusk', 'underlord', 'undying', 'ursa', 'vengeful-spirit', 'venomancer', 'viper', 'visage', 'void-spirit', 
-        'warlock', 'weaver', 'windranger', 'winter-wyvern', 'wisp', 'witch-doctor', 'wraith-king', 'zeus'
+        'abaddon', 'alchemist', 'ancient-apparition', 'anti-mage', 'arc-warden', 'axe', 'bane', 'batrider',
+        'beastmaster', 'bloodseeker', 'bounty-hunter', 'brewmaster', 'bristleback', 'broodmother', 'centaur-warrunner',
+        'chaos-knight', 'chen', 'clinkz', 'clockwerk', 'crystal-maiden', 'dark-seer', 'dark-willow', 'dawnbreaker',
+        'dazzle', 'death-prophet', 'disruptor', 'doom', 'dragon-knight', 'drow-ranger', 'earthshaker', 'earth-spirit',
+        'elder-titan', 'ember-spirit', 'enchantress', 'enigma', 'faceless-void', 'grimstroke', 'gyrocopter', 'hoodwink',
+        'huskar', 'invoker', 'io', 'jakiro', 'juggernaut', 'keeper-of-the-light', 'kunkka', 'legion-commander',
+        'leshrac', 'lich', 'lifestealer', 'lina', 'lion', 'lone-druid', 'luna', 'lycan', 'magnus', 'marci', 'mars',
+        'medusa', 'meepo', 'mirana', 'monkey-king', 'morphling', 'muerta', 'naga-siren', "nature's-prophet", 'necrophos',
+        'night-stalker', 'nyx-assassin', 'ogre-magi', 'omniknight', 'oracle', 'outworld-destroyer', 'pangolier', 'phantom-assassin',
+        'phantom-lancer', 'phoenix', 'primal-beast', 'puck', 'pudge', 'pugna', 'queen-of-pain', 'razor', 'riki',
+        'ringmaster', 'rubick', 'sand-king', 'shadow-demon', 'shadow-fiend', 'shadow-shaman', 'silencer', 'skywrath-mage',
+        'slardar', 'slark', 'snapfire', 'sniper', 'spectre', 'spirit-breaker', 'storm-spirit', 'sven', 'techies',
+        'templar-assassin', 'terrorblade', 'tidehunter', 'timbersaw', 'tinker', 'tiny', 'treant-protector', 'troll-warlord',
+        'tusk', 'underlord', 'undying', 'ursa', 'vengeful-spirit', 'venomancer', 'viper', 'visage', 'void-spirit',
+        'warlock', 'weaver', 'windranger', 'winter-wyvern', 'witch-doctor', 'wraith-king', 'zeus'
     ];
     
     // DOM Elements
@@ -132,43 +132,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (gameState.currentPlayer === gameState.spyIndex) {
             // Show spy icon for the spy player
             characterImage.alt = 'ШПИОН';
-            characterImage.style.display = ''; // Show the image element
             characterImage.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
                 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
                     <rect width="24" height="24" fill="#2a2a2a" rx="4"/>
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z" fill="white"/>
                 </svg>
             `);
-            characterImage.style.backgroundColor = '#2a2a2a'; // Dark gray background
-            characterImage.style.width = '200px';
-            characterImage.style.height = '200px';
-            characterImage.style.borderRadius = '5px';
-            characterImage.innerHTML = '';
-            characterImage.onerror = function() {
-                // Fallback for spy icon if SVG fails
-                this.style.display = 'flex';
-                this.style.alignItems = 'center';
-                this.style.justifyContent = 'center';
-                this.style.backgroundColor = '#2a2a2a';
-                this.innerHTML = '<span style="color: white; font-size: 1.2rem; font-weight: bold;">ШПИОН</span>';
-            };
             characterName.textContent = 'ШПИОН';
         } else {
             // Show selected character for other players
             characterImage.alt = gameState.selectedCharacter.replace(/-/g, ' ');
-            characterImage.style.display = ''; // Show the image element
             characterImage.src = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${gameState.selectedCharacter}.png`;
-            characterImage.style.backgroundColor = '';
-            characterImage.style.width = '200px';
-            characterImage.style.height = '200px';
-            characterImage.style.borderRadius = '5px';
-            characterImage.innerHTML = '';
-            characterImage.onerror = function() {
-                // Fallback if image fails to load - just hide the image
-                this.style.display = 'none'; // Hide broken image
-            };
             characterName.textContent = gameState.selectedCharacter.replace(/-/g, ' ').toUpperCase();
         }
+
+        // Set proper display properties for the image
+        characterImage.style.display = 'block';
+        characterImage.style.width = '100%';
+        characterImage.style.height = 'auto';
+        characterImage.style.maxHeight = '320px';
+        characterImage.style.borderRadius = '4px';
+
+        // Set error handler for character images (not needed for spy SVG)
+        characterImage.onerror = function() {
+            // Fallback if image fails to load - just hide the image
+            this.style.display = 'none'; // Hide broken image
+        };
 
         // Update player indicator
         playerNumber.textContent = gameState.currentPlayer + 1;
@@ -224,11 +213,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset character info
         characterImage.src = '';
         characterImage.alt = ''; // Clear alt attribute to prevent showing text
-        characterImage.style.backgroundColor = '';
-        characterImage.style.width = '200px'; // Keep consistent width
-        characterImage.style.height = '200px'; // Keep consistent height
         characterImage.style.display = 'none'; // Hide the image element until new content is set
-        characterImage.style.borderRadius = '5px'; // Reset border radius
+        characterImage.style.backgroundColor = '';
+        characterImage.style.width = '';
+        characterImage.style.height = '';
+        characterImage.style.borderRadius = '';
         characterImage.innerHTML = '';
         characterImage.onerror = null; // Remove error handler
         characterName.textContent = '';
