@@ -142,7 +142,21 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Show selected character for other players
             characterImage.alt = gameState.selectedCharacter.replace(/-/g, ' ');
-            characterImage.src = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${gameState.selectedCharacter}.png`;
+
+            // Map special character name variations for the CDN
+            let cdnCharacterName = gameState.selectedCharacter;
+            const nameVariations = {
+                'shadow-fiend': 'nevermore',  // Shadow Fiend's internal name is nevermore
+                'wraith-king': 'skeleton-king', // Wraith King was renamed from Skeleton King
+                "nature's-prophet": 'furion'  // Nature's Prophet's internal name is furion
+            };
+
+            if (nameVariations[gameState.selectedCharacter]) {
+                cdnCharacterName = nameVariations[gameState.selectedCharacter];
+            }
+
+            // Try the primary CDN URL format first
+            characterImage.src = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${cdnCharacterName}.png`;
             characterName.textContent = gameState.selectedCharacter.replace(/-/g, ' ').toUpperCase();
         }
 
@@ -155,8 +169,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set error handler for character images (not needed for spy SVG)
         characterImage.onerror = function() {
-            // Fallback if image fails to load - just hide the image
-            this.style.display = 'none'; // Hide broken image
+            // Initialize fallback counter on the image element if it doesn't exist
+            if (typeof this.fallbackAttempt === 'undefined') {
+                this.fallbackAttempt = 0;
+            }
+
+            const originalName = gameState.selectedCharacter;
+
+            // Define multiple fallback sources and naming conventions to try
+            const fallbacks = [
+                // Try underscore format on primary CDN
+                `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${originalName.replace(/-/g, '_')}.png`,
+                // Alternative Steam CDN
+                `https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${originalName}.png`,
+                // Alternative underscore format on Steam CDN
+                `https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${originalName.replace(/-/g, '_')}.png`,
+                // Alternative Steam CDN 2
+                `https://media.st.dota2.com/apps/dota2/images/dota_react/heroes/${originalName}.png`,
+                // Try the old Valve CDN with full suffix
+                `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName}_full.png`,
+                // Try the old Valve CDN with portrait suffix
+                `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName}_vert.jpg`,
+                // Try underscore with old CDN
+                `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName.replace(/-/g, '_')}_full.png`,
+                // Try special name variations on old CDN
+                originalName === 'shadow-fiend' ? `http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_full.png` :
+                originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton-king_full.png` :
+                originalName === "nature's-prophet" ? `http://cdn.dota2.com/apps/dota2/images/heroes/furion_full.png` : null,
+                // Liquipedia fallback - these are reliable community-maintained images
+                `https://liquipedia.net/dota2/images/${originalName.replace(/^./, originalName[0].toUpperCase())}.png`, // Capitalize first letter
+                // Alternative Liquipedia pattern
+                `https://liquipedia.net/dota2/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                // Fandom/Wiki alternative
+                `https://dota2.gamepedia.com/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                // Another Fandom/Wiki pattern
+                `https://dota2.fandom.com/wiki/File:${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+            ].filter(Boolean); // Remove null values
+
+            // Try the next fallback if available
+            if (this.fallbackAttempt < fallbacks.length) {
+                this.src = fallbacks[this.fallbackAttempt];
+                this.fallbackAttempt++;
+            } else {
+                // Final fallback to SVG with character name
+                this.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                        <rect width="200" height="200" fill="#333" rx="4"/>
+                        <text x="100" y="100" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dominant-baseline="middle">
+                            ${originalName.replace(/-/g, ' ').toUpperCase()}
+                        </text>
+                    </svg>
+                `);
+                // If the fallback SVG also fails, then hide the element
+                this.onerror = function() {
+                    this.style.display = 'none';
+                };
+            }
         };
 
         // Update player indicator
@@ -219,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         characterImage.style.height = '';
         characterImage.style.borderRadius = '';
         characterImage.innerHTML = '';
+        characterImage.fallbackAttempt = 0; // Reset fallback counter
         characterImage.onerror = null; // Remove error handler
         characterName.textContent = '';
     }

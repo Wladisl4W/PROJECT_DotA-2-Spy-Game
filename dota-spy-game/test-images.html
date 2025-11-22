@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Dota 2 Hero Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .hero-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .hero-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+        }
+        .hero-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .status {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .image-missing {
+            background-color: #ffe6e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тест Dota 2 Hero Images</h1>
+        <p>Эта страница показывает все герои Dota 2 с их изображениями. Те, у которых нет изображений, будут отмечены.</p>
+        <div id="hero-list"></div>
+    </div>
+
+    <script>
+        // DotA 2 characters list
+        const dotaCharacters = [
+            'abaddon', 'alchemist', 'ancient-apparition', 'anti-mage', 'arc-warden', 'axe', 'bane', 'batrider',
+            'beastmaster', 'bloodseeker', 'bounty-hunter', 'brewmaster', 'bristleback', 'broodmother', 'centaur-warrunner',
+            'chaos-knight', 'chen', 'clinkz', 'clockwerk', 'crystal-maiden', 'dark-seer', 'dark-willow', 'dawnbreaker',
+            'dazzle', 'death-prophet', 'disruptor', 'doom', 'dragon-knight', 'drow-ranger', 'earthshaker', 'earth-spirit',
+            'elder-titan', 'ember-spirit', 'enchantress', 'enigma', 'faceless-void', 'grimstroke', 'gyrocopter', 'hoodwink',
+            'huskar', 'invoker', 'io', 'jakiro', 'juggernaut', 'keeper-of-the-light', 'kunkka', 'legion-commander',
+            'leshrac', 'lich', 'lifestealer', 'lina', 'lion', 'lone-druid', 'luna', 'lycan', 'magnus', 'marci', 'mars',
+            'medusa', 'meepo', 'mirana', 'monkey-king', 'morphling', 'muerta', 'naga-siren', "nature's-prophet", 'necrophos',
+            'night-stalker', 'nyx-assassin', 'ogre-magi', 'omniknight', 'oracle', 'outworld-destroyer', 'pangolier', 'phantom-assassin',
+            'phantom-lancer', 'phoenix', 'primal-beast', 'puck', 'pudge', 'pugna', 'queen-of-pain', 'razor', 'riki',
+            'ringmaster', 'rubick', 'sand-king', 'shadow-demon', 'shadow-fiend', 'shadow-shaman', 'silencer', 'skywrath-mage',
+            'slardar', 'slark', 'snapfire', 'sniper', 'spectre', 'spirit-breaker', 'storm-spirit', 'sven', 'techies',
+            'templar-assassin', 'terrorblade', 'tidehunter', 'timbersaw', 'tinker', 'tiny', 'treant-protector', 'troll-warlord',
+            'tusk', 'underlord', 'undying', 'ursa', 'vengeful-spirit', 'venomancer', 'viper', 'visage', 'void-spirit',
+            'warlock', 'weaver', 'windranger', 'winter-wyvern', 'witch-doctor', 'wraith-king', 'zeus'
+        ];
+
+        const heroList = document.getElementById('hero-list');
+        
+        dotaCharacters.forEach(heroName => {
+            // Create container for hero item
+            const heroItem = document.createElement('div');
+            heroItem.className = 'hero-item';
+            
+            // Map special character names for the CDN
+            let cdnHeroName = heroName;
+            const nameVariations = {
+                'shadow-fiend': 'nevermore',
+                'wraith-king': 'skeleton-king',
+                "nature's-prophet": 'furion'
+            };
+
+            if (nameVariations[heroName]) {
+                cdnHeroName = nameVariations[heroName];
+            }
+
+            // Create image element
+            const img = document.createElement('img');
+            img.className = 'hero-image';
+            img.src = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${cdnHeroName}.png`;
+            img.alt = heroName.replace(/-/g, ' ');
+            
+            // Create name element
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'hero-name';
+            nameDiv.textContent = heroName.replace(/-/g, ' ');
+            
+            // Create status element
+            const status = document.createElement('div');
+            status.className = 'status';
+            status.textContent = 'Загрузка...';
+            
+            // Add elements to container
+            heroItem.appendChild(img);
+            heroItem.appendChild(nameDiv);
+            heroItem.appendChild(status);
+            
+            // Add container to list
+            heroList.appendChild(heroItem);
+            
+            // Check if image loads
+            img.onload = function() {
+                status.textContent = '✓';
+                status.style.color = 'green';
+            };
+            
+            img.onerror = function() {
+                status.textContent = '✗';
+                status.style.color = 'red';
+                heroItem.classList.add('image-missing');
+
+                // Try alternative URL formats
+                const originalName = heroName;
+                const nameVariations = {
+                    'shadow-fiend': 'nevermore',
+                    'wraith-king': 'skeleton-king',
+                    "nature's-prophet": 'furion'
+                };
+
+                let cdnHeroName = nameVariations[originalName] ? nameVariations[originalName] : originalName;
+
+                const fallbacks = [
+                    // Try underscore format on primary CDN
+                    `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${originalName.replace(/-/g, '_')}.png`,
+                    // Alternative Steam CDN
+                    `https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${originalName}.png`,
+                    // Alternative underscore format on Steam CDN
+                    `https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/${originalName.replace(/-/g, '_')}.png`,
+                    // Alternative Steam CDN 2
+                    `https://media.st.dota2.com/apps/dota2/images/dota_react/heroes/${originalName}.png`,
+                    // Try the old Valve CDN with full suffix
+                    `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName}_full.png`,
+                    // Try the old Valve CDN with portrait suffix
+                    `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName}_vert.jpg`,
+                    // Try underscore with old CDN
+                    `http://cdn.dota2.com/apps/dota2/images/heroes/${originalName.replace(/-/g, '_')}_full.png`,
+                    // Try special name variations on old CDN
+                    originalName === 'shadow-fiend' ? `http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_full.png` :
+                    originalName === 'wraith-king' ? `http://cdn.dota2.com/apps/dota2/images/heroes/skeleton-king_full.png` :
+                    originalName === "nature's-prophet" ? `http://cdn.dota2.com/apps/dota2/images/heroes/furion_full.png` : null,
+                    // Liquipedia fallback - these are reliable community-maintained images
+                    `https://liquipedia.net/dota2/images/${originalName.replace(/^./, originalName[0].toUpperCase())}.png`, // Capitalize first letter
+                    // Alternative Liquipedia pattern
+                    `https://liquipedia.net/dota2/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                    // Fandom/Wiki alternative
+                    `https://dota2.gamepedia.com/images/thumb/${originalName.replace(/^./, originalName[0].toUpperCase())}.png/200px-${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                    // Another Fandom/Wiki pattern
+                    `https://dota2.fandom.com/wiki/File:${originalName.replace(/^./, originalName[0].toUpperCase())}.png`,
+                ].filter(Boolean);
+
+                let fallbackIndex = 0;
+
+                function tryFallback() {
+                    if (fallbackIndex < fallbacks.length) {
+                        img.src = fallbacks[fallbackIndex];
+                        status.textContent = 'fallback ' + (fallbackIndex + 1);
+                        fallbackIndex++;
+                    } else {
+                        status.textContent = '✗ (all sources)';
+                    }
+                }
+
+                // Try next fallback when current fails
+                this.onerror = tryFallback;
+
+                // Try the first fallback immediately
+                tryFallback();
+            };
+        });
+    </script>
+</body>
+</html>
