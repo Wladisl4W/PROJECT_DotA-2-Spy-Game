@@ -441,6 +441,7 @@ body {
         position: static;
         top: auto;
         padding: 10px 0 20px 0;
+        text-align: center;
     }
 
     h1 {
@@ -474,6 +475,10 @@ body {
         width: 100%;
         max-width: 100%;
         padding: 15px;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
     }
 
     .player-count-selection,
@@ -481,6 +486,7 @@ body {
         padding: 25px 20px;
         width: 100%;
         max-width: 100%;
+        margin: 0 auto;
     }
 
     .spy-card {
@@ -509,6 +515,7 @@ body {
         margin: 5px;
         width: auto;
         display: inline-block;
+        min-width: 120px;
     }
 
     .card-controls {
@@ -522,6 +529,7 @@ body {
     .card-controls .btn {
         width: 80%;
         max-width: 200px;
+        margin: 5px 0 !important; /* Override any existing margins */
     }
 
     #currentPlayer {
@@ -555,6 +563,7 @@ body {
 
     header {
         padding: 8px 0 15px 0;
+        text-align: center;
     }
 
     h1 {
@@ -577,6 +586,10 @@ body {
         font-size: 1.3rem;
     }
 
+    #main-content {
+        padding: 15px 0;
+    }
+
     .screen {
         padding: 10px;
     }
@@ -584,11 +597,13 @@ body {
     .player-count-selection,
     .game-started {
         padding: 20px 15px;
+        margin: 0 auto;
     }
 
     .spy-card {
         width: 220px;
         height: 320px;
+        margin: 15px auto;
     }
 
     #characterImage {
@@ -597,6 +612,7 @@ body {
 
     .character-image-container {
         max-width: 180px;
+        height: auto;
     }
 
     #characterName {
@@ -607,6 +623,19 @@ body {
         padding: 9px 18px;
         font-size: 0.95rem;
         margin: 4px;
+        min-width: 100px;
+        width: auto;
+    }
+
+    .card-controls {
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .card-controls .btn {
+        width: 90%;
+        max-width: 180px;
+        margin: 4px 0 !important;
     }
 
     #currentPlayer {
@@ -632,6 +661,7 @@ body {
 
     header {
         padding: 6px 0 12px 0;
+        text-align: center;
     }
 
     h1 {
@@ -653,44 +683,77 @@ body {
         font-size: 1.2rem;
     }
 
+    #main-content {
+        padding: 10px 0;
+    }
+
+    .screen {
+        padding: 8px;
+    }
+
     .player-count-selection,
     .game-started {
         padding: 18px 12px;
+        margin: 0 auto;
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .player-indicator {
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: center;
     }
 
     .spy-card {
-        width: 200px;
-        height: 280px;
+        width: 180px;
+        height: 260px;
+        margin: 12px auto;
     }
 
     #characterImage {
-        max-height: 150px;
+        max-height: 140px;
     }
 
     .character-image-container {
-        max-width: 160px;
+        max-width: 140px;
+        height: auto;
     }
 
     #characterName {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .btn {
         padding: 8px 16px;
         font-size: 0.9rem;
+        min-width: 90px;
         width: 90%;
-        max-width: 100%;
-        margin: 4px 0;
+        max-width: 160px;
+        margin: 4px auto;
         display: block;
     }
 
     .card-controls {
-        gap: 8px;
+        gap: 6px;
+        margin-top: 10px;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .card-controls .btn {
-        width: 90%;
-        max-width: 100%;
+        width: 95%;
+        max-width: 160px;
+        margin: 3px auto !important;
     }
 
     #currentPlayer {
