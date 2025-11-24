@@ -437,13 +437,25 @@ body {
         height: auto;
     }
 
+    header {
+        position: static;
+        top: auto;
+        padding: 10px 0 20px 0;
+    }
+
     h1 {
         font-size: 1.8rem;
-        top: 20px;
+        margin-bottom: 8px;
+    }
+
+    h1::after {
+        width: 200px;
+        margin: 12px auto;
     }
 
     h1 span {
         font-size: 1.1rem;
+        margin-top: 6px;
     }
 
     h2 {
@@ -541,13 +553,24 @@ body {
         padding: 8px;
     }
 
+    header {
+        padding: 8px 0 15px 0;
+    }
+
     h1 {
         font-size: 1.6rem;
         letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    h1::after {
+        width: 170px;
+        margin: 10px auto;
     }
 
     h1 span {
         font-size: 0.9rem;
+        margin-top: 5px;
     }
 
     h2 {
@@ -607,13 +630,23 @@ body {
         padding-bottom: 90px;
     }
 
+    header {
+        padding: 6px 0 12px 0;
+    }
+
     h1 {
         font-size: 1.4rem;
-        top: 15px;
+        margin-bottom: 5px;
+    }
+
+    h1::after {
+        width: 150px;
+        margin: 8px auto;
     }
 
     h1 span {
         font-size: 0.8rem;
+        margin-top: 4px;
     }
 
     h2 {
