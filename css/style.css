@@ -689,12 +689,15 @@ body {
 
     .screen {
         padding: 8px;
+        min-height: auto;
     }
 
     .player-count-selection,
     .game-started {
         padding: 18px 12px;
         margin: 0 auto;
+        min-width: 85%;
+        max-width: 95%;
     }
 
     .card-container {
@@ -710,12 +713,14 @@ body {
         margin-bottom: 15px;
         width: 100%;
         text-align: center;
+        flex-shrink: 0;
     }
 
     .spy-card {
         width: 180px;
         height: 260px;
         margin: 12px auto;
+        flex-shrink: 0;
     }
 
     #characterImage {
@@ -739,6 +744,7 @@ body {
         max-width: 160px;
         margin: 4px auto;
         display: block;
+        flex-shrink: 0;
     }
 
     .card-controls {
@@ -748,6 +754,7 @@ body {
         width: 100%;
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
     }
 
     .card-controls .btn {
@@ -768,5 +775,35 @@ body {
     footer {
         font-size: 0.55rem;
         padding: 3px 6px;
+    }
+}
+
+/* Additional mobile-specific fixes */
+@media (max-width: 768px) {
+    body {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: auto;
+        overflow-x: hidden;
+    }
+
+    /* Ensure proper spacing between elements */
+    .screen {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Prevent content overflow */
+    .player-count-selection,
+    .game-started {
+        min-width: 80%;
+        margin: 0 auto;
+    }
+
+    /* Ensure proper flex behavior to prevent overlapping */
+    .card-container {
+        flex: 1 0 auto;
+        min-height: 0;
     }
 }
