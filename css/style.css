@@ -434,18 +434,243 @@ body {
 @media (max-width: 768px) {
     .container {
         padding: 10px;
+        height: auto;
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        top: 20px;
+    }
+
+    h1 span {
+        font-size: 1.1rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+    }
+
+    #main-content {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+
+    .screen {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .player-count-selection,
+    .game-started {
+        padding: 25px 20px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .spy-card {
         width: 250px;
         height: 350px;
+        margin: 15px auto;
+    }
+
+    #characterImage {
+        max-height: 200px;
+    }
+
+    .character-image-container {
+        max-width: 200px;
+        height: auto;
+    }
+
+    #characterName {
+        font-size: 1.2rem;
+        margin-top: 5px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        margin: 5px;
+        width: auto;
+        display: inline-block;
+    }
+
+    .card-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .card-controls .btn {
+        width: 80%;
+        max-width: 200px;
+    }
+
+    #currentPlayer {
+        font-size: 1.2rem;
+        padding: 6px 15px;
+    }
+
+    #playerCountDisplay {
+        font-size: 1.8rem;
+    }
+
+    .player-range {
+        margin: 20px 0;
+    }
+
+    footer {
+        font-size: 0.65rem;
+        padding: 5px 10px;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    body {
+        padding-bottom: 80px;
+    }
+
+    .container {
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+    }
+
+    h1 span {
+        font-size: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .screen {
+        padding: 10px;
+    }
+
+    .player-count-selection,
+    .game-started {
+        padding: 20px 15px;
+    }
+
+    .spy-card {
+        width: 220px;
+        height: 320px;
+    }
+
+    #characterImage {
+        max-height: 180px;
+    }
+
+    .character-image-container {
+        max-width: 180px;
+    }
+
+    #characterName {
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        padding: 9px 18px;
+        font-size: 0.95rem;
+        margin: 4px;
+    }
+
+    #currentPlayer {
+        font-size: 1.1rem;
+        padding: 5px 12px;
+    }
+
+    #playerCountDisplay {
+        font-size: 1.6rem;
+    }
+
+    footer {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+    }
+}
+
+/* Very small devices (older phones) */
+@media (max-width: 480px) {
+    body {
+        padding-bottom: 90px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        top: 15px;
+    }
+
+    h1 span {
+        font-size: 0.8rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .player-count-selection,
+    .game-started {
+        padding: 18px 12px;
+    }
+
+    .spy-card {
+        width: 200px;
+        height: 280px;
+    }
+
+    #characterImage {
+        max-height: 150px;
+    }
+
+    .character-image-container {
+        max-width: 160px;
+    }
+
+    #characterName {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        width: 90%;
+        max-width: 100%;
+        margin: 4px 0;
+        display: block;
+    }
+
+    .card-controls {
+        gap: 8px;
+    }
+
+    .card-controls .btn {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    #currentPlayer {
+        font-size: 1rem;
+        padding: 4px 10px;
+    }
+
+    #playerCountDisplay {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: 0.55rem;
+        padding: 3px 6px;
     }
 }
