@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DotA 2 Spy Game - Module Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #0a0a0a;
+            color: white;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: rgba(0, 128, 0, 0.2);
+            border: 1px solid green;
+        }
+        .error {
+            background: rgba(128, 0, 0, 0.2);
+            border: 1px solid red;
+        }
+        .warning {
+            background: rgba(255, 165, 0, 0.2);
+            border: 1px solid orange;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #f04a26;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>DotA 2 Spy Game - Module Test</h1>
+        <p>Testing if all modules are properly loaded:</p>
+        <div id="test-results"></div>
+    </div>
+
+    <!-- Load game modules in correct order -->
+    <script src="js/characters.js"></script>
+    <script src="js/gameState.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const results = document.getElementById('test-results');
+
+            // Проверяем наличие классов
+            const tests = [
+                { name: 'CharacterManager class', check: () => typeof CharacterManager !== 'undefined' },
+                { name: 'GameState class', check: () => typeof GameState !== 'undefined' },
+                { name: 'UIManager class', check: () => typeof UIManager !== 'undefined' },
+                { name: 'Main application', check: () => typeof window.game !== 'undefined' },
+                { name: 'CharacterManager instance', check: () => typeof window.game.characterManager !== 'undefined' },
+                { name: 'GameState instance', check: () => typeof window.game.gameState !== 'undefined' },
+                { name: 'UIManager instance', check: () => typeof window.game.uiManager !== 'undefined' }
+            ];
+
+            tests.forEach(test => {
+                const result = document.createElement('div');
+                result.className = 'test-result';
+
+                if (test.check()) {
+                    result.classList.add('success');
+                    result.textContent = `✓ ${test.name} - OK`;
+                } else {
+                    result.classList.add('error');
+                    result.textContent = `✗ ${test.name} - MISSING`;
+                }
+
+                results.appendChild(result);
+            });
+
+            // Run functional tests
+            setTimeout(() => {
+                try {
+                    // Test CharacterManager functionality
+                    const charManager = new CharacterManager();
+                    const chars = charManager.getCharacters();
+                    
+                    const charResult = document.createElement('div');
+                    charResult.className = 'test-result';
+                    if (Array.isArray(chars) && chars.length > 0) {
+                        charResult.classList.add('success');
+                        charResult.textContent = `✓ CharacterManager.getCharacters() returned ${chars.length} characters`;
+                    } else {
+                        charResult.classList.add('error');
+                        charResult.textContent = `✗ CharacterManager.getCharacters() failed`;
+                    }
+                    results.appendChild(charResult);
+
+                    // Test GameState functionality
+                    const gameState = new GameState();
+                    gameState.initializeGame(6, charManager);
+                    
+                    const stateResult = document.createElement('div');
+                    stateResult.className = 'test-result';
+                    if (gameState.getPlayerCount() === 6) {
+                        stateResult.classList.add('success');
+                        stateResult.textContent = `✓ GameState initialized with 6 players`;
+                    } else {
+                        stateResult.classList.add('error');
+                        stateResult.textContent = `✗ GameState failed to initialize properly`;
+                    }
+                    results.appendChild(stateResult);
+
+                } catch (e) {
+                    const errorResult = document.createElement('div');
+                    errorResult.className = 'test-result error';
+                    errorResult.textContent = `✗ Error during functional tests: ${e.message}`;
+                    results.appendChild(errorResult);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 // DotA 2 Spy Game - JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// NOTE: This file is deprecated. The application now uses a modular architecture.
+// See js/characters.js, js/gameState.js, js/ui.js, and js/main.js instead.
+// This file is kept for backward compatibility only.
     // Game state
     let gameState = {
         players: [],

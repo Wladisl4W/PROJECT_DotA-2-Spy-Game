@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DotA 2: Игра в шпиона</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -66,7 +66,11 @@
         </main>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- Load game modules in correct order -->
+    <script src="js/characters.js"></script>
+    <script src="js/gameState.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
 
     <footer style="position: fixed; bottom: 15px; width: 100%; text-align: center; color: #666; font-size: 0.75rem; z-index: 10; opacity: 0.7; padding: 5px 0;">
         <p>Нашли баг или есть предложение? — напишите <a href="https://github.com/Wladisl4W/PROJECT_DotA-2-Spy-Game/issues" target="_blank" style="color: #f04a26; text-decoration: underline;">здесь</a></p>
